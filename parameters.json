@@ -1,0 +1,33 @@
+[
+    {
+        "ParameterKey": "KeyName",
+        "ParameterValue": ""
+    },
+    {
+      "ParameterKey": "SubnetID",
+      "ParameterValue": [
+          "",
+          "",
+          ""]
+    },
+    {
+        "ParameterKey": "DesiredCapacity",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "MaxSize",
+        "ParameterValue": "1"
+    },
+    {
+        "ParameterKey": "InstanceType",
+        "ParameterValue": "t2.large"
+    },
+    {
+        "ParameterKey": "SSHLocation",
+        "ParameterValue": "0.0.0.0/0"
+    },
+    {
+        "ParameterKey": "EFSVolume",
+        "ParameterValue": ""
+    }
+  ]
