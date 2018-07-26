@@ -1,18 +1,15 @@
 [
     {
         "ParameterKey": "KeyName",
-        "ParameterValue": ""
+        "ParameterValue": "externalKonfio"
     },
     {
-      "ParameterKey": "SubnetID",
-      "ParameterValue": [
-          "",
-          "",
-          ""]
+        "ParameterKey": "SubnetID",
+        "ParameterValue": "subnet-aa1944cd"
     },
     {
         "ParameterKey": "DesiredCapacity",
-        "ParameterValue": ""
+        "ParameterValue": "1"
     },
     {
         "ParameterKey": "MaxSize",
