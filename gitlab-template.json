@@ -69,6 +69,10 @@
         "Default": "0.0.0.0/0",
         "AllowedPattern": "(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})/(\\d{1,2})",
         "ConstraintDescription": "must be a valid IP CIDR range of the form x.x.x.x/x."
+      },
+      "EFSVolume": {
+        "Type": "String",
+        "Description": "Volumen EFS a Montar en Instancias del Cluster"
       }
     },
   
@@ -194,7 +198,7 @@
                "yum install -y nfs-utils\n",
                "mkdir /mnt/gitlab\n",
                "chmod 7777 -R /mnt/gitlab\n",
-               "echo -e 'fs-8db0cb24.efs.us-west-2.amazonaws.com:/ /mnt/gitlab nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0' >> /etc/fstab\n", 
+               "echo ", { "Ref" : "EFSVolume" }, "':/ /mnt/gitlab nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0' >> /etc/fstab\n", 
                "mount -a\n",
   
                "/opt/aws/bin/cfn-init -v ",
