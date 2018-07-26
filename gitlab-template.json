@@ -73,39 +73,43 @@
       "EFSVolume": {
         "Type": "String",
         "Description": "Volumen EFS a Montar en Instancias del Cluster"
+      },
+      "MountPoint":{
+        "Type": "String",
+        "Description": "Punto de Montaje de NFS"
       }
     },
   
     "Mappings":{
-        "AWSRegionToAMI":{
-          "us-east-1":{
-            "AMIID":"ami-eca289fb"
-          },
-          "us-east-2":{
-            "AMIID":"ami-446f3521"
-          },
-          "us-west-1":{
-            "AMIID":"ami-9fadf8ff"
-          },
-          "us-west-2":{
-            "AMIID":"ami-7abc111a"
-          },
-          "eu-west-1":{
-            "AMIID":"ami-a1491ad2"
-          },
-          "eu-central-1":{
-            "AMIID":"ami-54f5303b"
-          },
-          "ap-northeast-1":{
-            "AMIID":"ami-9cd57ffd"
-          },
-          "ap-southeast-1":{
-            "AMIID":"ami-a900a3ca"
-          },
-          "ap-southeast-2":{
-            "AMIID":"ami-5781be34"
-          }
+      "AWSRegionToAMI":{
+        "us-east-1":{
+          "AMIID":"ami-eca289fb"
+        },
+        "us-east-2":{
+          "AMIID":"ami-446f3521"
+        },
+        "us-west-1":{
+          "AMIID":"ami-9fadf8ff"
+        },
+        "us-west-2":{
+          "AMIID":"ami-7abc111a"
+        },
+        "eu-west-1":{
+          "AMIID":"ami-a1491ad2"
+        },
+        "eu-central-1":{
+          "AMIID":"ami-54f5303b"
+        },
+        "ap-northeast-1":{
+          "AMIID":"ami-9cd57ffd"
+        },
+        "ap-southeast-1":{
+          "AMIID":"ami-a900a3ca"
+        },
+        "ap-southeast-2":{
+          "AMIID":"ami-5781be34"
         }
+      }
     },
   
     "Resources" : {
@@ -196,11 +200,11 @@
 
                "yum -y update\n",
                "yum install -y nfs-utils\n",
-               "mkdir /mnt/gitlab\n",
-               "chmod 7777 -R /mnt/gitlab\n",
-               "echo ", { "Ref" : "EFSVolume" }, "':/ /mnt/gitlab nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0' >> /etc/fstab\n", 
+               "mkdir -p ", { "Ref" : "MountPoint" }, "\n",
+               "chmod 7777 -R ", { "Ref" : "MountPoint" }, "\n",
+               "echo ", { "Ref" : "EFSVolume" }, "':/ ", { "Ref" : "MountPoint" }, " nfs4 nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=600,retrans=2 0 0' >> /etc/fstab\n", 
                "mount -a\n",
-               "chmod 7777 -R /mnt/gitlab\n",
+               "chmod 7777 -R ", { "Ref" : "MountPoint" }, "\n",
   
                "/opt/aws/bin/cfn-init -v ",
                "         --stack ", { "Ref" : "AWS::StackName" },
@@ -313,6 +317,6 @@
     "Outputs" : {
       "ecscluster" : {
         "Value" : { "Ref" : "ECSCluster" }
-      },
+      }
     }
   }
